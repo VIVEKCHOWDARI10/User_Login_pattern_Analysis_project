@@ -9,6 +9,7 @@ pipeline {
            npm install
            '''
          }
+       }
       stage (" unit testing ")
          {
            steps 
