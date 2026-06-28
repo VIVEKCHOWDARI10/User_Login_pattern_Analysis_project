@@ -12,18 +12,21 @@ pipeline {
            }
          }
        }
-     stage('Unit Testing') {
+    stage('Unit Testing') {
     steps {
         dir('frontend') {
             sh '''
-            node -v
-            npm -v
-            npm list jest-junit
-            cat package.json
+            export CI=true
+            npm test -- --watchAll=false --reporters=default --reporters=jest-junit || true
+
+            echo "===== Reports ====="
+            find . -name "*.xml"
+            find . -name "junit.xml"
+            ls -R
             '''
         }
     }
-}
+ }
 }
        post {
          always {
