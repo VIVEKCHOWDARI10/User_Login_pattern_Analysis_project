@@ -6,7 +6,7 @@ pipeline {
        {
          steps {
            sh '''
-           echo "hello this is a demo pipeline 
+           echo "hello this is a demo pipeline "
            '''
          }
        }
