@@ -8,6 +8,11 @@ pipeline {
            dir('frontend') {
            sh '''
            npm install
+            pwd
+            ls
+            ls node_modules/react-router-dom
+           npm list react-router-dom
+
            '''
            }
          }
