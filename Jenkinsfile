@@ -40,12 +40,8 @@ pipeline {
 }
 }
        post {
-         always {
-           sh 'cat reports/junit.xml'
-           junit 'frontend/reports/junit.xml'
-        }
-         success {
-           sh ' echo unit tests passed '
-     }
-  }
+    always {
+        junit 'frontend/reports/junit.xml'
+    }
+ }
 }
