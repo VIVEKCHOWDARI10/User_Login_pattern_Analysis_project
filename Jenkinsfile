@@ -43,22 +43,28 @@ pipeline {
                 }
             }
         }
-     stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('SonarQube') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
-                    -Dsonar.projectKey=Hotstar '''
-                }
+    stage("SonarQube Analysis") {
+    steps {
+        dir('frontend') {
+            withSonarQubeEnv('SonarQube') {
+                sh '''
+                $SCANNER_HOME/bin/sonar-scanner \
+                  -Dsonar.projectName=User_Login_Pattern_Analysis \
+                  -Dsonar.projectKey=User_Login_Pattern_Analysis \
+                  -Dsonar.sources=src
+                '''
             }
         }
-        stage("quality gate"){
-           steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
-                }
-            } 
-        }
+    }
+}
 
+stage("Quality Gate") {
+    steps {
+        script {
+            waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+        }
+    }
+}
 
         stage('OWASP Dependency Check') {
             steps {
