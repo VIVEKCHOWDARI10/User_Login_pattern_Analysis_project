@@ -2,8 +2,6 @@ pipeline {
     agent any
      environment {
         SCANNER_HOME=tool 'sonar-scanner'
-    }
-    environment {
         IMAGE_NAME = "vivekchowdari10/frontend"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
