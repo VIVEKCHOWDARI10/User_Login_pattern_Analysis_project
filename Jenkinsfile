@@ -27,7 +27,7 @@ pipeline {
 }
        post {
          always {
-            junit 'junit.xml'
+           junit 'frontend/reports/junit.xml'
         }
          success {
            sh ' echo unit tests passed '
