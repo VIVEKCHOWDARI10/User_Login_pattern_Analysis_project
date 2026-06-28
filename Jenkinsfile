@@ -27,3 +27,4 @@ pipeline {
            sh ' echo unit tests passed '
      }
   }
+}
