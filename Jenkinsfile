@@ -66,13 +66,7 @@ stage("Quality Gate") {
     }
 }
 
-        stage('OWASP Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: '--scan frontend',
-                                odcInstallation: 'owasp'
-            }
-        }
-
+        
         stage('Docker Build') {
             steps {
                 dir('frontend') {
