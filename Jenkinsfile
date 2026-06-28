@@ -2,11 +2,11 @@
 pipeline {
   agent any 
      stages {
-       stage ("demo ")
+       stage ("unit testing  ")
        {
          steps {
            sh '''
-           echo "hello this is a demo pipeline "
+           
            '''
          }
        }
