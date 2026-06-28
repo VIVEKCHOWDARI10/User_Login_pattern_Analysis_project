@@ -67,38 +67,25 @@ stage("Quality Gate") {
 }
 
         
-        stage('Docker Build') {
-            steps {
-                dir('frontend') {
-                    sh '''
-                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
-                    '''
-                }
-            }
-        }
-
-        stage('Trivy Scan') {
-            steps {
-                sh '''
-                trivy image ${IMAGE_NAME}:${IMAGE_TAG}
-                '''
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        sh '''
-                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
-                        docker push ${IMAGE_NAME}:latest
-                        '''
+       stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                       sh "docker build -t frontend ."
+                       sh "docker tag frontend  vivekchowdari/frontend:latest "
+                       sh "docker push vivekchowdari/frontend:latest "
                     }
                 }
             }
         }
+        stage("TRIVY"){
+            steps{
+                sh "trivy image vivekchowdari/frontend:latest > trivyimage.txt" 
+            }
+        }
 
+        
+        
         stage('Run Docker Container') {
             steps {
                 sh '''
@@ -107,7 +94,7 @@ stage("Quality Gate") {
                 docker run -d \
                     --name frontend \
                     -p 3000:80 \
-                    ${IMAGE_NAME}:latest
+                    frontend:latest
                 '''
             }
         }
