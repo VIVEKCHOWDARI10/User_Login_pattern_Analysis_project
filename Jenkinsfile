@@ -69,12 +69,14 @@ stage("Quality Gate") {
         
        stage("Docker Build & Push"){
             steps{
+                dir('frontend'){
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                        sh "docker build -t frontend ."
                        sh "docker tag frontend  vivekchowdari/frontend:latest "
                        sh "docker push vivekchowdari/frontend:latest "
                     }
+                 }
                 }
             }
         }
