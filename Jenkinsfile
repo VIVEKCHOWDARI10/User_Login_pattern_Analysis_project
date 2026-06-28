@@ -108,7 +108,6 @@ stage("Quality Gate") {
             junit allowEmptyResults: true,
                   testResults: 'frontend/reports/junit.xml'
 
-            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
 
         success {
