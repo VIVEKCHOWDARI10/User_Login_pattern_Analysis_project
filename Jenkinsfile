@@ -45,23 +45,19 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'sonarqube'
-            }
-
-            steps {
-                dir('frontend') {
-                    withSonarQubeEnv('sonarqube') {
-                        sh '''
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=frontend \
-                        -Dsonar.projectName=frontend \
-                        -Dsonar.sources=src
-                        '''
-                    }
-                }
+    steps {
+        dir('frontend') {
+            withSonarQubeEnv('SonarQube') {
+                sh '''
+                    $SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.projectName=Hotstar \
+                    -Dsonar.projectKey=Hotstar \
+                    -Dsonar.sources=src
+                '''
             }
         }
+    }
+}
 
         stage('OWASP Dependency Check') {
             steps {
