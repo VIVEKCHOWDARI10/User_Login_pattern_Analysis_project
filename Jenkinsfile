@@ -18,6 +18,7 @@ pipeline {
            {
              dir('frontend') {
              sh '''
+             npm install --save-dev jest-junit
              npx jest --ci --reporters=default --reporters=jest-junit
              '''
              }
