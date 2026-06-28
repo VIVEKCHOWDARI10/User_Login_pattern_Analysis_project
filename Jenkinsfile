@@ -12,21 +12,23 @@ pipeline {
            }
          }
        }
-    stage('Unit Testing') {
+   stage('Unit Testing') {
     steps {
         dir('frontend') {
             sh '''
             export CI=true
-            npm test -- --watchAll=false --reporters=default --reporters=jest-junit || true
 
-            echo "===== Reports ====="
+            npm test -- --watchAll=false
+
+            echo "Current directory:"
+            pwd
+
+            echo "Looking for XML files..."
             find . -name "*.xml"
-            find . -name "junit.xml"
-            ls -R
             '''
         }
     }
- }
+}
 }
        post {
          always {
