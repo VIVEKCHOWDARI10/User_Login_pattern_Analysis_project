@@ -12,6 +12,10 @@ pipeline {
             ls
             ls node_modules/react-router-dom
            npm list react-router-dom
+           npm ls react
+           npm ls react-dom
+           cat src/setupTests.js
+            node -e "console.log(require.resolve('react-router-dom'))"
 
            '''
            }
