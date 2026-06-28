@@ -12,19 +12,19 @@ pipeline {
            }
          }
        }
-      stage (" unit testing ")
-         {
-           steps 
-           {
-             dir('frontend') {
-             sh '''
-             npm install --save-dev jest-junit
-             sh 'CI=true npm test -- --watchAll=false'
-             '''
-             }
-           }
-         }
-       }
+      stage('Unit Testing') {
+    steps {
+        dir('frontend') {
+            sh '''
+            export CI=true
+            export JEST_JUNIT_OUTPUT_DIR=reports
+            export JEST_JUNIT_OUTPUT_NAME=junit.xml
+            npm test -- --watchAll=false --reporters=default --reporters=jest-junit
+            '''
+        }
+    }
+ }
+}
        post {
          always {
             junit 'junit.xml'
