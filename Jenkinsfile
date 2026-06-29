@@ -95,7 +95,7 @@ stage("Quality Gate") {
 
                 docker run -d \
                     --name frontend \
-                    -p 3000:80 \
+                    -p 8000:80 \
                     frontend:latest
                 '''
             }
