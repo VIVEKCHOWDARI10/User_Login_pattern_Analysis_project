@@ -111,7 +111,7 @@ stage("Quality Gate") {
         }
 
         success {
-            echo 'Pipeline Completed Successfully.'
+            echo 'Pipeline Completed Successfully..'
         }
 
         failure {
